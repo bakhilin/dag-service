@@ -2,7 +2,7 @@ name: Python CI/CD Pipeline
 
 on:
   push:
-    branches-ignore: [ main ]
+    branches-ignore: [ ]
 
 jobs:
   test:
