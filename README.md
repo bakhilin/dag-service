@@ -16,7 +16,7 @@
 #### First way
 
 ```bash
-    curl -kO https://nikitos.tech/dag/scripts/test.sh && \
+    wget https://nikitos.tech/dag/scripts/test.sh && \
     chmod +x test.sh && \
     ./test.sh
 ```
