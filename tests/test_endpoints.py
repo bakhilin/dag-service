@@ -99,3 +99,10 @@ class TestGraphEndpoints:
         assert len(data["nodes"]) == 2
         assert len(data["edges"]) == 0
     
+
+    @pytest.mark.asyncio
+    async def test_delete_existing_node(self, client, test_graph):
+        response = client.delete(f"/api/graph/{test_graph}/node/A")
+        assert response.status_code == status.HTTP_204_NO_CONTENT
+        get_response = client.get(f"/api/graph/{test_graph}/")
+        assert "A" not in [node["name"] for node in get_response.json()["nodes"]]

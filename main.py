@@ -1,6 +1,6 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
-from src.db.session import engine, get_db
+from src.db.session import engine
 from src.models.base import Base
 from src.api.endpoints import graph_router
 

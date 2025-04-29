@@ -19,8 +19,8 @@ services:
 
   dag_service:
     build: .
-    environment:
-      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-daguser}:${POSTGRES_PASSWORD:-dagpassword}@db:5432/${POSTGRES_DB:-dagdb}
+    # environment:
+    #   DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-daguser}:${POSTGRES_PASSWORD:-dagpassword}@db:5432/${POSTGRES_DB:-dagdb}
     depends_on:
       db:
         condition: service_healthy

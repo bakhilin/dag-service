@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from typing import List
 
 class NodeBase(BaseModel):
@@ -17,6 +17,8 @@ class GraphCreate(BaseModel):
     nodes: List[NodeBase] = Field(..., min_items=1, 
                                 description="List Nodes of graph")
     edges: List[EdgeBase] = Field(..., description="List edges of graph")
+
+    #@field_validator()
 
 class GraphResponse(BaseModel):
     """Response object of graph"""

@@ -22,6 +22,7 @@ class ENDPoints:
         self.router.get("/{graph_id}/", response_model=GraphResponse)(self.read_graph_api_graph__graph_id___get)
         self.router.get("/{graph_id}/adjacency_list", response_model=AdjacencyListResponse)(self.get_adjacency_list_api_graph__graph_id__adjacency_list_get)
         self.router.get("/{graph_id}/reverse_adjacency_list")(self.get_reverse_adjacency_list_api_graph__graph_id__reverse_adjacency_list_get)
+        self.router.get("/all")(self.get_all_graphs)
         self.router.delete("/{graph_id}/node/{node_name}", status_code=status.HTTP_204_NO_CONTENT)(self.delete_node_api_graph__graph_id__node__node_name__delete)
 
     async def create_graph_api_graph__post(
@@ -62,6 +63,20 @@ class ENDPoints:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail={"message": "Failed to add graph"}
+            )
+
+    async def get_all_graphs(
+        self, 
+        db: AsyncSession = Depends(get_db)
+    ):
+        crud_operations = CRUDOperation(db)
+        try:
+            graphs = await crud_operations.get_all_graphs()
+            return graphs
+        except ValueError as e:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail={"message": "Graph entity not found"}
             )
 
     async def read_graph_api_graph__graph_id___get(

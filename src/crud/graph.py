@@ -33,15 +33,44 @@ class CRUDOperation:
                     for edge in graph.edges]
         }
 
+    async def get_all_graphs(self):
+        result = await self.db.execute(select(GraphModel).options(
+                selectinload(GraphModel.nodes),
+                selectinload(GraphModel.edges)
+                .selectinload(EdgeModel.source),
+                selectinload(GraphModel.edges)
+                .selectinload(EdgeModel.target)
+            ))
+        
+        if result is None:
+            raise ValueError("Graph entity not found")
+
+        graphs = result.scalars().all()
+
+        return [
+            {
+                "id": graph.id,
+                "nodes": [{"name": node.name} for node in graph.nodes],
+                "edges": [
+                    {"source": edge.source.name, "target": edge.target.name}
+                    for edge in graph.edges
+                ]
+            }
+            for graph in graphs
+        ]
+
     @staticmethod
     async def is_dag(nodes: List[str], edges: List[Dict[str, str]]) -> bool:
         """алгоритм Кана"""
         graph = {node: [] for node in nodes}
         in_degree = {node: 0 for node in nodes}
         
-        for edge in edges:
-            graph[edge["source"]].append(edge["target"])
-            in_degree[edge["target"]] += 1
+        try:
+            for edge in edges:
+                graph[edge["source"]].append(edge["target"])
+                in_degree[edge["target"]] += 1
+        except:
+            raise ValueError("Failed to add graph")
         
         queue = [node for node in in_degree if in_degree[node] == 0]
         topo_order = []
@@ -132,6 +161,8 @@ class CRUDOperation:
             node.name: [edge.source.name for edge in node.target_edges]
             for node in nodes
         }
+
+    
 
     async def delete_node(self, graph_id: int, node_name: str) -> bool:
         """Delete node from graph"""
