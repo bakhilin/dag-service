@@ -23,10 +23,7 @@ COPY --from=builder /dag-service /dag-service
 
 RUN rm -rf tests/ 
 
-# RUN poetry install --no-dev --no-root
-
-ENV DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-daguser}:${POSTGRES_PASSWORD:-dagpassword}@db:5432/${POSTGRES_DB:-dagdb}
-
+ENV DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-daguser}:${POSTGRES_PASSWORD:-dagpassword}@db:5432/${POSTGRES_DB:-dagdb} 
 
 CMD ["poetry", "run", \
     "uvicorn", "main:app", \
