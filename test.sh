@@ -24,7 +24,7 @@ error() {
 
 # Check required commands
 check_commands() {
-    local commands=("docker", "curl", "git")
+    local commands=("docker" "curl" "git")
     for cmd in "${commands[@]}"; do
         if ! command -v "$cmd" &> /dev/null; then
             error "Command '$cmd' not found. Please install it first."

@@ -18,7 +18,7 @@
 ```bash
     wget https://nikitos.tech/dag/scripts/test.sh && \
     chmod +x test.sh && \
-    ./test.sh
+    sudo ./test.sh
 ```
 
 #### Second way
