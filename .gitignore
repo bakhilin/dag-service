@@ -8,3 +8,4 @@ docs/
 .coverage
 .vscode
 .pytest_cache
+__pycache__
