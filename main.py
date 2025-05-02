@@ -26,3 +26,10 @@ app.include_router(graph_router().router, prefix="/api/graph")
 @app.get("/health")
 async def health_check():
     return {"status": "ok"}
+
+
+if __name__ == '__main__':
+    import uvicorn, os
+    uvicorn.run("main:app", host=os.getenv('HOST'), 
+                port=int(os.getenv('PORT')), 
+                reload=bool(os.getenv('RELOAD_STRATEGY')))
