@@ -2,6 +2,8 @@
 
 Сервис на FastAPI для хранения и отображения направленных ациклических графов (DAG) (далее - сервис) с хранением данных в PostgreSQL.
 
+Бот мониторинга API - https://t.me/dag_service_bot
+
 ![lievsey](https://i.pinimg.com/564x/6f/ee/69/6fee69597c8eb0f7ba9651c45c98b2bf.jpg)
 
 #### За более подробной документацией предлагаю обратиться к интернет ресурсу https://nikitos.tech/dag/docs
